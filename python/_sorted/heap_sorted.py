@@ -1,4 +1,4 @@
-def heap_sorted(arr):
+def heap_sort(arr):
     build_heap(arr)
     k = len(arr) - 1
     while k >= 0:
@@ -7,27 +7,27 @@ def heap_sorted(arr):
         heapify(arr, 0, k)
 
 
-def heapify(arr, i, k):
+def heapify(arr, p, r):
     while True:
-        max_pos = i
-        left, right = (i << 1) + 1, (i << 1) + 2
-        if left <= k and arr[left] > arr[max_pos]:
+        max_pos = p
+        left, right = (p << 1) + 1, (p << 1) + 2
+        if left <= r and arr[left] > arr[max_pos]:
             max_pos = left
-        if right <= k and arr[right] > arr[max_pos]:
+        if right <= r and arr[right] > arr[max_pos]:
             max_pos = right
-        if max_pos == i:
-            return
-        if arr[max_pos] > arr[i]:
-            arr[max_pos], arr[i] = arr[i], arr[max_pos]
-        i = max_pos
+        if max_pos == p:
+            break
+        arr[max_pos], arr[p] = arr[p], arr[max_pos]
+        p = max_pos
 
 
 def build_heap(arr):
-    for i in range((len(arr) - 1) << 1, -1, -1):
-        heapify(arr, i, len(arr) - 1)
+    k = len(arr) - 1
+    for i in range(k >> 1, -1, -1):
+        heapify(arr, i, k)
 
 
 if __name__ == '__main__':
-    arr = [1, 6, 0, 2, 10, 5, 7, 1, -2]
-    heap_sorted(arr)
+    arr = [100, 1, 7, 2, 8, 1, 9, 2, 10, 23, 67, 12, 1, -8, -6, 92, 52, 1, 4, -2, 89, 23, 12, 200]
+    heap_sort(arr)
     print(arr)
